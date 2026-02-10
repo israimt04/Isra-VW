@@ -1,0 +1,11 @@
+calls = int(input("Enter number of calls: "))
+bill = 0.0
+if calls <= 100:
+    bill = 200.0
+elif calls <= 150:
+    bill = 200.0 + (calls - 100) * 0.60
+elif calls <= 200:
+    bill = 200.0 + 50 * 0.60 + (calls - 150) * 0.50
+else:
+    bill = 200.0 + 50 * 0.60 + 50 * 0.50 + (calls - 200) * 0.40
+print(f"Monthly bill: Rs. {bill}")
