@@ -5,7 +5,7 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-# Sample local products
+
 products = [
     {"name": "Laptop", "price": 50000},
     {"name": "Phone", "price": 20000},
@@ -13,13 +13,12 @@ products = [
     {"name": "Tablet", "price": 20000}
 ]
 
-# Local API
 @app.route("/api/products")
 def get_products():
     return jsonify(products)
 
 
-# API that fetches external data
+
 @app.route("/api/futurama")
 def futurama_data():
     url = "https://api.sampleapis.com/futurama/info"
