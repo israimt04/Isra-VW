@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Welcome, {{ role.capitalize() }}</h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+
+        {% if permissions.can_view_salary %}
+            <th>Salary</th>
+        {% endif %}
+
+        {% if permissions.can_delete %}
+            <th>Actions</th>
+        {% endif %}
+    </tr>
+
+    {% for emp in employees %}
+    <tr>
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.department }}</td>
+
+        {% if permissions.can_view_salary %}
+            <td>${{ emp.salary }}</td>
+        {% endif %}
+
+        {% if permissions.can_delete %}
+            <td>
+                <button>Delete</button>
+            </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

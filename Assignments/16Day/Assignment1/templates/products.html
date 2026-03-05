@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Listing</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 1em; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f4f4f4; }
+        .count { font-weight: bold; margin-bottom: 1em; }
+        .empty { color: #c00; font-size: 1.2em; margin-top: 2em; }
+        .filters { margin-bottom: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Product Listing</h1>
+    <form method="get" class="filters">
+        <label>Category:
+            <select name="category">
+                <option value="">All</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Stationery">Stationery</option>
+            </select>
+        </label>
+        <label>Availability:
+            <select name="available">
+                <option value="">All</option>
+                <option value="true">Available</option>
+                <option value="false">Unavailable</option>
+            </select>
+        </label>
+        <label>Sort by Price:
+            <select name="sort">
+                <option value="">None</option>
+                <option value="asc">Low to High</option>
+                <option value="desc">High to Low</option>
+            </select>
+        </label>
+        <button type="submit">Apply</button>
+    </form>
+    <div class="count">Total products: {{ total }}</div>
+    {% if products %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Available</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>${{ product.price }}</td>
+                <td>{{ 'Yes' if product.available else 'No' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty">No products found.</div>
+    {% endif %}
+</body>
+</html>

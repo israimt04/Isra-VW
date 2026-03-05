@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visit Counter</title>
+</head>
+<body>
+
+    {% if name %}
+        <h2>Welcome {{ name }}</h2>
+        <p>You have visited this page {{ count }} times.</p>
+    {% else %}
+        <h1>Enter Your Name</h1>
+
+        <form method="POST">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+
+</body>
+</html>

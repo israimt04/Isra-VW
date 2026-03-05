@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Comments</h1>
+
+<h3>Statistics</h3>
+<p><strong>Total Comments:</strong> {{ total_comments }}</p>
+<p><strong>Total Flagged:</strong> {{ total_flagged }}</p>
+<p><strong>Most Liked:</strong> {{ most_liked.username.upper() }} ({{ most_liked.likes }} likes)</p>
+<p><strong>All Usernames:</strong> {{ usernames_joined }}</p>
+
+<hr>
+
+{% for c in comments %}
+
+<div class="comment-box {% if c.flagged %}flagged{% endif %}">
+    
+    <h3>{{ c.username.upper() }}</h3>
+
+    <p>
+        {{ c.comment.strip() | clean_words }}
+    </p>
+
+    <p><strong>Likes:</strong> {{ c.likes }}</p>
+
+    {% if c.likes > 100 %}
+        <span class="badge trending">Trending</span>
+    {% endif %}
+
+    {% if c.comment.strip() | length > 200 %}
+        <span class="badge longpost">Long Post</span>
+    {% endif %}
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

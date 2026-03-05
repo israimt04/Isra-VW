@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Company Portal Login</h2>
+
+    <form method="POST">
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Role</label>
+        <select name="role">
+            <option value="admin">Admin</option>
+            <option value="employee">Employee</option>
+            <option value="hr">HR</option>
+        </select>
+
+        <div class="remember">
+            <input type="checkbox" name="remember">
+            <span>Remember Me (7 days)</span>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+</body>
+</html>

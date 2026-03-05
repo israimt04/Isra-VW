@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Your Cart</h2>
+
+    {% if empty %}
+        <p>Your cart is empty.</p>
+    {% else %}
+        {% for item, qty in cart.items() %}
+            <div class="product">
+                <p>
+                    {{ item }} (₹{{ prices[item] }}) × {{ qty }}
+                </p>
+                <a href="/cart/increase/{{ item }}">+</a>
+                <a href="/cart/decrease/{{ item }}">-</a>
+            </div>
+        {% endfor %}
+
+        <h3>Total: ₹{{ total }}</h3>
+
+        <a href="/cart/clear" class="clear-btn">Clear Cart</a>
+    {% endif %}
+
+    <br><br>
+    <a href="/">Back to Products</a>
+</div>
+
+</body>
+</html>
