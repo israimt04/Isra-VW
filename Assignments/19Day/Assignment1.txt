@@ -1,0 +1,122 @@
+Question 1
+
+1. Create Tables
+
+Employees Table:
+
+CREATE TABLE Employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    department VARCHAR(50),
+    salary INT,
+    joining_date DATE
+);
+
+Projects Table:
+
+CREATE TABLE Projects (
+    project_id INT PRIMARY KEY,
+    project_name VARCHAR(50),
+    start_date DATE,
+    end_date DATE
+);
+
+Employee_Project Table
+
+CREATE TABLE Employee_Project (
+    emp_id INT,
+    project_id INT,
+    hours_worked INT,
+    rating INT,
+    FOREIGN KEY (emp_id) REFERENCES Employees(emp_id),
+    FOREIGN KEY (project_id) REFERENCES Projects(project_id)
+);
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2. Insert Sample Data
+
+Insert into Employees
+
+INSERT INTO Employees VALUES
+(1, 'Isra', 'IT', 60000, '2022-01-10'),
+(2, 'Fatima', 'HR', 50000, '2021-03-15'),
+(3, 'Omar', 'IT', 75000, '2020-06-20'),
+(4, 'Aisha', 'Finance', 65000, '2019-09-12'),
+(5, 'Zaid', 'IT', 55000, '2023-02-01'),
+(6, 'Zorawar', 'Marketing', 52000, '2022-07-05');
+
+Insert into Projects
+
+INSERT INTO Projects VALUES
+(101, 'Website Development', '2023-01-01', '2023-06-30'),
+(102, 'Mobile App', '2023-02-15', '2023-07-30'),
+(103, 'Database System', '2023-03-01', '2023-08-15'),
+(104, 'Marketing Campaign', '2023-04-10', '2023-09-30');
+
+Insert into Employee_Project
+
+INSERT INTO Employee_Project VALUES
+(1, 101, 120, 5),
+(1, 102, 100, 4),
+(1, 103, 80, 5),
+(2, 101, 60, 3),
+(3, 101, 150, 5),
+(3, 102, 140, 4),
+(3, 103, 130, 5),
+(4, 102, 70, 4),
+(5, 104, 50, 3);
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+3. SQL Queries
+
+1. Find employees who worked on more than 2 projects
+
+SELECT emp_id
+FROM Employee_Project
+GROUP BY emp_id
+HAVING COUNT(project_id) > 2;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2. Display employees whose average rating across projects is above 4
+
+SELECT emp_id, AVG(rating) AS avg_rating
+FROM Employee_Project
+GROUP BY emp_id
+HAVING AVG(rating) > 4;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+3. Find the highest paid employee in each department
+
+SELECT *
+FROM Employees e
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM Employees
+    WHERE department = e.department
+);
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+4. Show employees who never worked on any project
+
+SELECT *
+FROM Employees
+WHERE emp_id NOT IN (
+    SELECT emp_id
+    FROM Employee_Project
+);
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+5. Find the project with the highest total hours worked
+
+SELECT project_id, SUM(hours_worked) AS total_hours
+FROM Employee_Project
+GROUP BY project_id
+ORDER BY total_hours DESC
+LIMIT 1;
+
